@@ -21,10 +21,19 @@ jobs:
       - run: 
           name: Run build
           command: npm run build
-      - persist_to_workspace: 
-          paths: build/*
-
+     
 workflows:
   build_deploy:
     jobs:
-      - build
+      - build:
+          filters:
+            only:
+              - master
+              - develop
+              - /^feat.*/
+      - deploy:
+        requires:
+          - build
+        filters:
+          only:
+            - master
