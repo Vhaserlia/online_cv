@@ -4,22 +4,29 @@ jobs:
   build:
     docker:
       - image: circleci/node:12
+
     steps:
       - checkout
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
-      - run: npm install
+      - run:
+          name: Install dependencies
+          command: npm install
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: npm run build
+      - run: 
+          name: Run build
+          command: npm run build
 
   test:
     steps:
-      - run: npm run test
+      - run: 
+        name: Run tests
+        command: npm run test
 
 
 workflows:
@@ -29,6 +36,3 @@ workflows:
       - test:
           requires:
             - build
-          filters: 
-            branches: 
-              only: /^feat.*/
