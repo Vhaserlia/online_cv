@@ -13,8 +13,6 @@ workflows:
               only: /^feat.*/
 
       - node/test:
-        requires:
-          - node/run
           filters: 
             branches: 
               only: /^feat.*/
