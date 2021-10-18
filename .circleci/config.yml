@@ -25,8 +25,8 @@ jobs:
   test:
     steps:
       - run: 
-        name: Run tests
-        command: npm run test
+          name: Run tests
+          command: npm run test
 
 
 workflows:
@@ -36,3 +36,6 @@ workflows:
       - test:
           requires:
             - build
+          filters: 
+            branches: 
+              only: /^feat.*/
